@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 
 const Home = React.lazy(() => import("pages/home/Home"));
+const PostCategories = React.lazy(() => import("pages/posts/categories/PostCategories"));
 const PostDetail = React.lazy(() => import("pages/posts/PostDetail"));
 const PostCreate = React.lazy(() => import("pages/posts/PostCreate"));
 // const PostEdit = React.lazy(() => import("pages/posts/PostEdit"));
@@ -42,6 +43,7 @@ const DefaultLayout = () => {
           <Route exact path="/users/profile" component={Profile} />
           <Route exact path="/users/:id" component={UserDetail} />
           <Route exact path="/search" component={Search} />
+          <Route exact path="/categories/:id" component={PostCategories} />
           {/* <Route exact path="/posts/:id/edit" component={PostEdit} /> */}
         </Switch>
       </Suspense>
