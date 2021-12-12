@@ -15,6 +15,7 @@ import avatarDefault from "assets/images/dummy-user.png";
 const Header = () => {
   const history = useHistory();
   const userInfo = useSelector(getInfoUser);
+  const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
 
   // Function
@@ -44,6 +45,7 @@ const Header = () => {
             <Button
               type="primary"
               icon={<PlusOutlined />}
+              disabled={!token}
               onClick={() => history.push(ROUTER.Create)}
             >
               Tạo bài viết

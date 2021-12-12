@@ -1,6 +1,7 @@
 import { CheckCircleOutlined } from "@ant-design/icons";
 import { Col, message, Modal, Row } from "antd";
 import { createNewPost } from "api/postAPI";
+import { useAuthen } from "hooks/useAuthen";
 import React, { useState } from "react";
 import { useMutation } from "react-query";
 import { useHistory } from "react-router-dom";
@@ -18,6 +19,7 @@ const initState = {
 };
 
 const PostCreate = () => {
+  useAuthen();
   const history = useHistory();
   const [postData, setPostData] = useState(initState);
 

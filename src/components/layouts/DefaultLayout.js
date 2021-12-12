@@ -2,7 +2,7 @@ import { getUserById } from "api/userAPI";
 import Footer from "components/layouts/footer/Footer";
 import Header from "components/layouts/header/Header";
 import LoadingComponent from "components/LoadingComponent";
-import { updateUser } from "features/auth/authSlice";
+import { updateUser, updateToken } from "features/auth/authSlice";
 import { parseJwt } from "helpers";
 import React, { Suspense, useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -25,6 +25,9 @@ const DefaultLayout = () => {
         localStorage?.token && JSON.parse(localStorage.token)
       );
       getUserById(userToken?.id).then((res) => dispatch(updateUser(res?.user)));
+      dispatch(
+        updateToken(localStorage?.token && JSON.parse(localStorage.token))
+      );
     }
   }, [dispatch]);
   return (
