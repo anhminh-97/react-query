@@ -72,12 +72,21 @@ const Header = () => {
                 </div>
               </div>
             ) : (
-              <Link
-                className="ass1-header__btn-upload ass1-btn"
-                to={ROUTER.Login}
-              >
-                Login
-              </Link>
+              <Space>
+                <Button
+                  type="primary"
+                  ghost
+                  onClick={() => history.push(ROUTER.Register)}
+                >
+                  Đăng ký
+                </Button>
+                <Button
+                  type="primary"
+                  onClick={() => history.push(ROUTER.Login)}
+                >
+                  Đăng nhập
+                </Button>
+              </Space>
             )}
           </Space>
         </div>
