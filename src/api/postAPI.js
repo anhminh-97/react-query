@@ -5,9 +5,9 @@ const getToken = () => {
 };
 
 export const getPosts = (params) => {
-  return axiosClient.get("post/getListPagination.php", {
-    params,
-  });
+  return axiosClient.get(
+    `post/getListPagination.php?pagesize=3&currPage=${params}`
+  );
 };
 
 export const getCommentByPostId = (postid) => {

@@ -5,11 +5,6 @@ import { useInfiniteQuery } from "react-query";
 import PostItem from "./PostItem";
 
 const PostListItem = () => {
-  const filter = {
-    pagesize: 3,
-    currPage: 1,
-  };
-
   const {
     data: listPosts,
     isLoading,
@@ -17,15 +12,19 @@ const PostListItem = () => {
     isFetching,
     hasNextPage,
     isFetchingNextPage,
-  } = useInfiniteQuery(["listPosts"], () => getPosts(filter), {
-    getNextPageParam: (lastPage, pages) => {
-      if (pages?.length < 5) {
-        return pages?.length + 1;
-      } else {
-        return undefined;
-      }
-    },
-  });
+  } = useInfiniteQuery(
+    ["listPosts"],
+    ({ pageParam = 1 }) => getPosts(pageParam),
+    {
+      getNextPageParam: (lastPage, allPages) => {
+        if (allPages?.length < 5) {
+          return allPages?.length + 1;
+        } else {
+          return undefined;
+        }
+      },
+    }
+  );
 
   return (
     <div className="ass1-section__list">
