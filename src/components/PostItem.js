@@ -5,8 +5,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { highlightText } from "../helpers";
 import avatarDefault from "assets/images/dummy-user.png";
-import { useSelector } from "react-redux";
-import { getInfoUser } from "features/auth/authSlice";
+// import { useSelector } from "react-redux";
+// import { getInfoUser } from "features/auth/authSlice";
 
 dayjs.extend(relativeTime);
 

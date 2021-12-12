@@ -1,11 +1,11 @@
-import { Col, Row, message, Modal } from "antd";
 import { CheckCircleOutlined } from "@ant-design/icons";
+import { Col, message, Modal, Row } from "antd";
+import { createNewPost } from "api/postAPI";
 import React, { useState } from "react";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation } from "react-query";
+import { useHistory } from "react-router-dom";
 import PostDetailForm from "./components/PostDetailForm";
 import PostDetailSidebar from "./components/PostDetailSidebar";
-import { createNewPost } from "api/postAPI";
-import { useHistory } from "react-router-dom";
 
 const initState = {
   url_image: "",
