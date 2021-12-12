@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-  baseURL: "http://api-meme-zendvn-01.herokuapp.com/api/",
+  baseURL: "https://api-meme-zendvn-01.herokuapp.com/api/",
   headers: {
     "Content-Type": "application/json",
   },
