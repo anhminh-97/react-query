@@ -18,7 +18,6 @@ const PostListItem = () => {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery(["listPosts"], () => getPosts(filter), {
-    refetchOnWindowFocus: false,
     getNextPageParam: (lastPage, pages) => {
       if (pages?.length < 5) {
         return pages?.length + 1;

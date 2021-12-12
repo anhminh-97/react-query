@@ -1,28 +1,23 @@
+import { message, Spin } from "antd";
+import { getInfoUser } from "features/auth/authSlice";
+import useUserPosts from "hooks/useUserPosts";
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Spin } from "antd";
-import { useQuery } from "react-query";
-
 import { ROUTER } from "../constants";
 import PostItem from "./PostItem";
-import { getInfoUser } from "features/auth/authSlice";
-import { getPostsByUserId } from "api/postAPI";
 
 const HomeSidebar = () => {
   const userInfo = useSelector(getInfoUser);
-  const { data: userPosts, isLoading } = useQuery(
-    ["userPosts", userInfo?.USERID],
-    () => getPostsByUserId(userInfo?.USERID),
-    {
-      enabled: !!userInfo?.USERID,
-      refetchOnWindowFocus: false,
-      select: (value) => {
-        const formatData = value?.posts;
-        return formatData;
-      },
+  const onError = (err) => {
+    message.error("Lấy dữ liệu thất bại!");
+  };
+  const onSuccess = (res) => {
+    if (res?.error) {
+      message.error(res.error);
     }
-  );
+  };
+  const { data: userPosts, isLoading } = useUserPosts(onError, onSuccess);
 
   return (
     <aside className="ass1-aside">

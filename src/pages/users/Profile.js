@@ -114,6 +114,7 @@ const Profile = () => {
                   type="primary"
                   htmlType="submit"
                   block
+                  size="large"
                   loading={isLoading}
                 >
                   Cập nhật
