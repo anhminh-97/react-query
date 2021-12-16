@@ -7,9 +7,7 @@ import PostItem from "./PostItem";
 const PostListItem = () => {
   const {
     data: listPosts,
-    isLoading,
     fetchNextPage,
-    isFetching,
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery(
@@ -36,7 +34,7 @@ const PostListItem = () => {
           <Button
             type="primary"
             onClick={fetchNextPage}
-            loading={isLoading || isFetching || isFetchingNextPage}
+            loading={isFetchingNextPage}
           >
             Xem thêm
           </Button>

@@ -14,7 +14,6 @@ const Login = () => {
       return postLogin(values);
     },
     {
-      retry: 3,
       onError: (err) => message.error("Đăng nhập thất bại!"),
       onSuccess: (res) => {
         if (res?.error) {

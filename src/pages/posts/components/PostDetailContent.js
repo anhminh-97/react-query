@@ -35,18 +35,28 @@ const PostDetailContent = () => {
     }
   );
 
-  const { data: listComments, isLoading } = useQuery(
-    ["listComments", id],
-    () => getCommentByPostId(id),
-    {
-      refetchOnWindowFocus: false,
-      onError: () => message.error("Lấy dữ liệu thất bại!"),
-      select: (value) => {
-        const listComments = value?.comments;
-        return listComments;
-      },
-    }
-  );
+  // const { data: listComments, isLoading } = useQuery(
+  //   ["listComments", id],
+  //   () => getCommentByPostId(id),
+  //   {
+  //     refetchOnWindowFocus: false,
+  //     onError: () => message.error("Lấy dữ liệu thất bại!"),
+  //     select: (value) => {
+  //       const listComments = value?.comments;
+  //       return listComments;
+  //     },
+  //   }
+  // );
+
+  const { data: listComments, isLoading } = useQuery({
+    queryKey: ["listComments", id],
+    queryFn: () => getCommentByPostId(id),
+    onError: () => message.error("Lấy dữ liệu thất bại!"),
+    select: (value) => {
+      const listComments = value?.comments;
+      return listComments;
+    },
+  });
 
   const newPost = {
     ...postDetail?.post,

@@ -3,19 +3,42 @@ import LoadingComponent from "components/LoadingComponent";
 import React from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
+import { message } from "antd";
 
 const HeaderMenu = () => {
-  const { data: categories, isLoading } = useQuery(
-    "categories",
-    () => getCategories(),
-    {
-      refetchOnWindowFocus: false,
-      select: (value) => {
-        const categories = value?.categories;
-        return categories;
-      },
-    }
-  );
+  // const { data: categories, isLoading } = useQuery(
+  //   "categories",
+  //   () => getCategories(),
+  //   {
+  //     refetchOnWindowFocus: false,
+  //     onError: () => message.error("Lấy dữ liệu thất bại!"),
+  //     onSuccess: (res) => {
+  //       if (res.error) {
+  //         message.error(res.error);
+  //       }
+  //     },
+  //     select: (value) => {
+  //       const categories = value?.categories;
+  //       return categories;
+  //     },
+  //   }
+  // );
+
+  const { data: categories, isLoading } = useQuery({
+    queryKey: "categories",
+    queryFn: () => getCategories(),
+    refetchOnWindowFocus: false,
+    onError: () => message.error("Lấy dữ liệu thất bại!"),
+    onSuccess: (res) => {
+      if (res.error) {
+        message.error(res.error);
+      }
+    },
+    select: (value) => {
+      const categories = value?.categories;
+      return categories;
+    },
+  });
 
   return (
     <nav>

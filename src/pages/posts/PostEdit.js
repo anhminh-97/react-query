@@ -2,7 +2,7 @@ import { Col, Row, message } from "antd";
 import { editPost, getPostByPostId } from "api/postAPI";
 import { useAuthen } from "hooks/useAuthen";
 import React, { useState } from "react";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 import PostDetailForm from "./components/PostDetailForm";
 import PostDetailSidebar from "./components/PostDetailSidebar";
@@ -21,6 +21,8 @@ const PostEdit = () => {
   useAuthen();
   const { id } = useParams();
   const [postData, setPostData] = useState(initState);
+
+  const queryClient = useQueryClient()
   const { mutate, isLoading } = useMutation(
     (values) => {
       return editPost(values);
@@ -32,6 +34,7 @@ const PostEdit = () => {
           message.error(res.error);
         } else {
           message.success("Cập nhật bài viết thành công!");
+          queryClient.setQueryData(['todo', id], res?.data?.post)
           setPostData({
             ...postData,
             url_image: res?.data?.post?.url_image,

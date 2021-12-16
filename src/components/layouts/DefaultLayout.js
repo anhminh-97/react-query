@@ -31,6 +31,7 @@ const DefaultLayout = () => {
       );
     }
   }, [dispatch]);
+  
   return (
     <div>
       <Header />

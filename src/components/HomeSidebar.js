@@ -1,7 +1,9 @@
 import { message, Spin } from "antd";
+import { getCommentByPostId } from "api/postAPI";
 import { getInfoUser } from "features/auth/authSlice";
 import useUserPosts from "hooks/useUserPosts";
 import React from "react";
+import { useQueries } from "react-query";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { ROUTER } from "../constants";
@@ -19,6 +21,19 @@ const HomeSidebar = () => {
   };
   const { data: userPosts, isLoading } = useUserPosts(onError, onSuccess);
 
+  const postCommentList = useQueries(
+    (userPosts || [])?.map((post) => {
+      return {
+        enabled: !!userPosts?.length,
+        queryKey: ["postCommentList", post.PID],
+        queryFn: () => getCommentByPostId(post.PID),
+        onError: () => {
+          message.error("Lấy dữ liệu thất bại!");
+        },
+      };
+    })
+  );
+
   return (
     <aside className="ass1-aside">
       <div className="ass1-content-head__t">
@@ -31,7 +46,13 @@ const HomeSidebar = () => {
           </div>
         ) : userInfo?.USERID ? (
           userPosts?.length ? (
-            userPosts.map((post) => <PostItem key={post.PID} post={post} />)
+            userPosts.map((post, index) => (
+              <PostItem
+                key={post.PID}
+                post={post}
+                commentPost={postCommentList[index]?.data?.comments?.length}
+              />
+            ))
           ) : (
             <span>
               Bạn chưa có bài viết nào. Hãy thêm bài viết{" "}
